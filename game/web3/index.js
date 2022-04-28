@@ -232,7 +232,7 @@ async function sendContract(method, abi, contract, args, value, gasLimit, gasPri
       const from = (await web3.eth.getAccounts())[0];
       log('sendContract method: ' + method + ' value: ' + value + ' gasLimit: ' + gasLimit + ' gasPrice: ' + gasPrice + ' args: ' + args);
     
-      const contractTransaction = await web3.eth.Contract(JSON.parse(abi), contract).methods[method](...JSON.parse(args))
+      const contractTransaction = await new web3.eth.Contract(JSON.parse(abi), contract).methods[method](...JSON.parse(args))
       .send({
         from,
         value,
