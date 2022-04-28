@@ -227,36 +227,28 @@ async function sendTransaction(to, value, gasLimit, gasPrice) {
 Implement send contract
 */
 async function sendContract(method, abi, contract, args, value, gasLimit, gasPrice) {
+  const from = (await web3.eth.getAccounts())[0];
   
-    try {
-      const from = (await web3.eth.getAccounts())[0];
-      log('sendContract method: ' + method + ' value: ' + value + ' gasLimit: ' + gasLimit + ' gasPrice: ' + gasPrice + ' args: ' + args);
-    
-      const contractTransaction = await new web3.eth.Contract(JSON.parse(abi), contract).methods[method](...JSON.parse(args))
-      .send({
-        from,
-        value,
-        gas: gasLimit ? gasLimit : undefined,
-        gasPrice: gasPrice ? gasPrice : undefined,
-      });
+  log('sendContract method: ' + method + ' value: ' + value + ' gasLimit: ' + gasLimit + ' gasPrice: ' + gasPrice + ' args: ' + args);
 
-      window.web3gl.sendContractResponse = contractTransaction;
-      log('sendContract: txnHash: ' + contractTransaction);
-      /*
-      .on("transactionHash", (transactionHash) => {
-        window.web3gl.sendContractResponse = transactionHash;
-      log('sendContract: txnHash: ' + transactionHash);
-      })
-      .on("error", (error) => {
-        window.web3gl.sendContractResponse = error.message;
-      log('sendContract: error: ' + error.message);
-      });
-      */
+  log('before json ABI: ' + abi);
+  log('after json ABI: ' + JSON.parse(abi));
 
-    } catch (error) {
+  new web3.eth.Contract(JSON.parse(abi), contract).methods[method](...JSON.parse(args))
+    .send({
+      from,
+      value,
+      gas: gasLimit ? gasLimit : undefined,
+      gasPrice: gasPrice ? gasPrice : undefined,
+    })
+    .on("transactionHash", (transactionHash) => {
+      window.web3gl.sendContractResponse = transactionHash;
+	  log('sendContract: txnHash: ' + transactionHash);
+    })
+    .on("error", (error) => {
       window.web3gl.sendContractResponse = error.message;
-      log('sendContractResponse: error: ' + error.message);
-    }
+	  log('sendContract: error: ' + error.message);
+    });
 }
 
 function log(msg){
