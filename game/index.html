@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
-  <body>
+  <body bgcolor=”#800000">
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=1600 height=900></canvas>
       <div id="unity-loading-bar">
@@ -20,7 +20,7 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Arena of Warriors</div>
+        <!-- <div id="unity-build-title">Arena of Warriors</div> -->
       </div>
     </div>
     <script src="web3/index.js"></script>
@@ -57,11 +57,11 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/AoW Build.loader.js";
+      var loaderUrl = buildUrl + "/AoW WebGL Build.loader.js";
       var config = {
-        dataUrl: buildUrl + "/AoW Build.data",
-        frameworkUrl: buildUrl + "/AoW Build.framework.js",
-        codeUrl: buildUrl + "/AoW Build.wasm",
+        dataUrl: buildUrl + "/AoW WebGL Build.data",
+        frameworkUrl: buildUrl + "/AoW WebGL Build.framework.js",
+        codeUrl: buildUrl + "/AoW WebGL Build.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Arena of Warriors",
         productName: "Arena of Warriors",
